@@ -1,0 +1,21 @@
+#api credential
+GITHUB_CLIENT_ID: e983e16cc5ab6c836163
+GITHUB_CLIENT_SECRET: 698dcd5184ba19b472b129418d9615c0d39f83d7
+GITHUB_SCOPES: read:user user:email #https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/#available-scopes
+GITHUB_REDIRECT_URI: http://localhost:3001
+
+#api url, path for oauth
+GITHUB_BASE_URL: https://github.com
+GITHUB_TOKEN_PATH: /login/oauth/access_token
+GITHUB_AUTHORIZE_PATH: /login/oauth/authorize
+GITHUB_REVOKE_PATH: /oauth/revoke
+GITHUB_TOKEN_EXPIRATION_WINDOW_IN_SECONDS: 60 #expire token 60 sec before actual expiry
+GITHUB_BASE_URL_ACCESS_CONTROL_ORIGIN: http://localhost:3001 #fix in lib/handler/response.js Line#4
+GITHUB_API_BASE_URL: https://api.github.com
+
+#cookie value
+APP_COOKIE_NAME: ${self:service}-auth
+APP_COOKIE_DOMAIN: .localhost
+
+#dynamodb table
+DYNAMODB_TABLES_AUTH: ${self:service}-auth-${self:provider.stage}

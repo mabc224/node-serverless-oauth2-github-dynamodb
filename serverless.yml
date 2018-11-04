@@ -1,0 +1,79 @@
+service: oauth2-app
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: eu-central-1
+  stage: dev
+  timeout: 30
+  #versionFunctions: false
+  memorySize: 512
+  environment: ${file(${self:service}-${self:provider.stage}.yml)}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+       - dynamodb:*
+      Resource:
+        - { "Fn::GetAtt": ["authTable", "Arn"] }
+
+package:
+  individually: true
+  exclude:
+    - .dynamodb/**
+    - db/**
+    - node_modeules/**
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    start:
+      port: 8000
+      migrate: true
+      seed: true
+      dbPath: ${env:PWD}/db
+  serverless-offline:
+    port: 3001
+
+functions:
+  githubPostSetup: #redirect
+    handler: lib/handlers.githubAuthPostSetup
+    events:
+      - http:
+          path: /setup
+          method: get
+          cors: true
+            #origin: ${self:provider.environment.GITHUB_REDIRECT_URI}
+            #headers:
+            #  - Content-Type
+            #  - Cookie
+            #allowCredentials: true
+  githubFetchAccessToken:
+    handler: lib/handlers.githubFetchSetup
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    authTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLES_AUTH} # Sync with environment variables
+        AttributeDefinitions:
+          - AttributeName: id # code
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: true
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

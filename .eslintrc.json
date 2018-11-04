@@ -1,0 +1,11 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+        "node": true
+    },
+    "rules": {
+        "object-property-newline":"error",
+        "no-param-reassign": 0,
+        "no-console": 0
+    }
+}
