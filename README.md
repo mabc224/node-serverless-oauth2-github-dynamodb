@@ -1,11 +1,11 @@
-# Node Serverless oauth2 github Dynamodb offline cookie
+# Serverless node oauth2 github Dynamodb offline cookie
 
 Serverless application with Node.js to perform GitHub oauth2 authentication and get access token, api utilization with token, persevering cookie on client side & saving detail in dynamodb
 
 * Clone repo:
 
     ```
-    git clone git@github.com:mabc224/node-serverless-oauth2-github-dynamodb.git
+    git clone git@github.com:mabc224/serverless-node-oauth2-github-dynamodb.git
     ```
 
 

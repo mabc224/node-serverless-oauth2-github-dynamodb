@@ -1,5 +1,5 @@
 {
-    "name": "node-serverless-oauth2-github-dynamodb",
+    "name": "serverless-node-oauth2-github-dynamodb",
     "private": true,
     "version": "1.0.0",
     "description": "",
@@ -15,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/mabc224/node-serverless-oauth2-github-dynamodb.git"
+        "url": "git+https://github.com/mabc224/serverless-node-oauth2-github-dynamodb.git"
     },
     "dependencies": {
         "cookie": "^0.3.1",
